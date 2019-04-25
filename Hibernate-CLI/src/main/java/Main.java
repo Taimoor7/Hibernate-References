@@ -1,3 +1,4 @@
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -115,8 +116,8 @@ public class Main {
                 System.out.println("Enter Course Id");
                 courseId=in.nextInt();
 
-                Teacher teacher = session.get(Teacher.class,techerId);
-                Course course = session.get(Course.class,courseId);
+                Teacher teacher = (Teacher) session.get(Teacher.class,techerId);
+                Course course = (Course) session.get(Course.class,courseId);
 
                 teacher.addCourse(course);
 
@@ -138,8 +139,8 @@ public class Main {
                 System.out.println("Enter Course Id");
                 cId=in.nextInt();
 
-                Student s  = session.get(Student.class,studentId);
-                Course c = session.get(Course.class,cId);
+                Student s  = (Student) session.get(Student.class,studentId);
+                Course c = (Course) session.get(Course.class,cId);
 
                 c.addStudent(s);
                 session.getTransaction().commit();
@@ -192,7 +193,7 @@ public class Main {
         int id;
         System.out.println("Enter Teacher id you want to delete");
         id=in.nextInt();
-        Teacher teacher = session.get(Teacher.class,id);
+        Teacher teacher =(Teacher) session.get(Teacher.class,id);
         System.out.println("Trying to delete teacher");
         System.out.println("Deleting teacher will  also delete teacher's details");
         session.delete(teacher);
@@ -245,7 +246,7 @@ public class Main {
         int id;
         System.out.println("Enter Teacher id you want to delete");
         id=in.nextInt();
-        Student student = session.get(Student.class,id);
+        Student student =(Student) session.get(Student.class,id);
         System.out.println("Trying to delete student");
         System.out.println("Deleting student will  also delete student's details");
         session.delete(student);
@@ -289,7 +290,7 @@ public class Main {
         System.out.println("Enter Course id you want to update");
         id=in.nextInt();
 
-        Course course= session.get(Course.class,id);
+        Course course=(Course) session.get(Course.class,id);
 
         System.out.println("Enter updated Course Details");
         System.out.println("Name:");
@@ -317,7 +318,7 @@ public class Main {
         int id;
         System.out.println("Enter Course id you want to delete");
         id=in.nextInt();
-        Course course = session.get(Course.class,id);
+        Course course =(Course) session.get(Course.class,id);
         System.out.println("Trying to delete course");
         session.delete(course);
         session.getTransaction().commit();
@@ -334,24 +335,31 @@ public class Main {
         System.out.println("Please enter teacher Id");
         id=in.nextInt();
         System.out.println(id);
-        Teacher teacher =session.get(Teacher.class,id);
+        Teacher teacher =(Teacher) session.get(Teacher.class,id);
         List<Course> courseList =teacher.getCourses();
         System.out.println(courseList);
         session.getTransaction().commit();
         menu();
     }
 
+
     public static void getStudentCourses(){
+    //Create session factory
+
         session = sessionFactory.getCurrentSession();
+        // Create COnneection
         session.beginTransaction();
 
         int id;
         System.out.println("Displaying Student Curses");
         System.out.println("Please enter student Id");
         id=in.nextInt();
-        Student  student =session.get(Student.class,id);
+        //get student object
+        Student  student =(Student) session.get(Student.class,id);
+        // get list of course using student
         List<Course> courseList =student.getCourses();
         System.out.println(courseList);
+        //commit
         session.getTransaction().commit();
         menu();
     }

@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="pop:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>pop</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="jjss.war">
+      <element id="artifact" artifact-name="pop:war exploded" />
+    </root>
+  </artifact>
+</component>
